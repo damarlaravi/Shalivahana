@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="shalivahanaApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shalivahana</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/css/style.css">
+</head>
+
+<body>
+    <div>
+        <!--<h1>Shalivaana Annadana Satram</h1>-->
+        <div ng-include="'/views/headerView.html'" ng-show="true"></div>
+        <div class="container nav-container">
+            <div ui-view></div>
+        </div>
+        <div ng-include="'/views/footer.html'" ng-show="true"></div>
+    </div>
+
+    <script src="resources/libs/angular/angular.js"></script>
+    <script src="resources/libs/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="resources/libs/angular-animate/angular-animate.js"></script>
+    <script src="resources/js/config.js"></script>
+    <script src="resources/js/controllers/homeController.js"></script>
+
+</body>
+
+</html>
