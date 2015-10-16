@@ -357,3 +357,7 @@ NAV
     position: inherit;
     margin: 20px;
 }
+
+.image-group{
+    float:left;
+}
