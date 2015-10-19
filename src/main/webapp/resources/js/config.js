@@ -31,7 +31,7 @@ angModule.config(['$urlRouterProvider', '$stateProvider',
             templateUrl: 'views/headerviews/contactus-vew.html'
         });
 
-       /* $urlRouterProvider.otherwise('/home');*/
+        $urlRouterProvider.otherwise('/home');
     }
 ]);
 
@@ -77,7 +77,7 @@ angModule.controller("MemberController",["$scope","$http", function($scope, $htt
                 'Content-Type' : "application/json"
             }
         });*/
-        var request = $http.post('http://localhost:8080/#/members/addMember', newMember);
+        var request = $http.post('members/addMember', newMember);
 
         console.log(newMember);
         request.success(function (data, status, headers)

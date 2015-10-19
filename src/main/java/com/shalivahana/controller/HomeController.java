@@ -14,6 +14,6 @@ public class HomeController
 {
     @RequestMapping("/home-view")
     public String getHomeView(ModelMap modelMap) {
-        return "home/home-veiw";
+        return "home/home-view";
     }
 }
