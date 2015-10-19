@@ -18,7 +18,7 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <mvc:resources mapping="/views/**" location="/WEB-INF/html/" />
+    <mvc:resources mapping="/static/**" location="/WEB-INF/html/views/" />
 
     <!--<mvc:resources mapping="/views/**" location="/WEB-INF/html/views/" />-->
 
