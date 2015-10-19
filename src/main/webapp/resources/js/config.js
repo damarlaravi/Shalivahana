@@ -5,33 +5,33 @@ angModule.config(['$urlRouterProvider', '$stateProvider',
     {
         $stateProvider.state('home', {
             url: '/home',
-            templateUrl: 'views/headerviews/home.html',
+            templateUrl: 'home/home-view.html',
             controller: 'HomeController'
         });
 
         $stateProvider.state('history', {
             url: '/history',
-            templateUrl: 'views/headerviews/history.html'
+            templateUrl: 'history/history-view.html'
                 //controller: 'AboutusController'
         });
 
         $stateProvider.state('members', {
             url: '/members',
-            templateUrl: 'views/headerviews/members.html'
-                //controller: 'ProjectsController'
+            templateUrl: 'members/members-view.html',
+            controller: 'MemberController'
         });
 
         $stateProvider.state('meetings', {
             url: '/meetings',
-            templateUrl: 'views/headerviews/meetings.html'
+            templateUrl: 'views/headerviews/meetings-view.html'
         });
 
         $stateProvider.state('contactus', {
             url: '/contactus',
-            templateUrl: 'views/headerviews/contactus.html'
+            templateUrl: 'views/headerviews/contactus-vew.html'
         });
 
-        $urlRouterProvider.otherwise('/home');
+       /* $urlRouterProvider.otherwise('/home');*/
     }
 ]);
 
@@ -63,44 +63,67 @@ angModule.controller('HomeController', ['$scope', '$interval', function ($scope,
     //console.log($scope.slides, HomeConroller.init());
 }]);
 
-/*angModule.animation('.slide-animation', function () {
-    return {
-        beforeAddClass: function (element, className, done) {
-            var scope = element.scope();
 
-            if (className == 'ng-hide') {
-                var finishPoint = element.parent().width();
-                if (scope.direction !== 'right') {
-                    finishPoint = -finishPoint;
-                }
-                TweenMax.to(element, 0.5, {
-                    left: finishPoint,
-                    onComplete: done
-                });
-            } else {
-                done();
+angModule.controller("MemberController",["$scope","$http", function($scope, $http){
+    $scope.member = {};
+    //$scope.member.address = {};
+    $scope.addNewMember = function(newMember)
+    {
+        /*var request = $http({
+            method : "POST",
+            url : 'members/add/',
+            data: newMember,
+            headers : {
+                'Content-Type' : "application/json"
             }
-        },
-        removeClass: function (element, className, done) {
-            var scope = element.scope();
+        });*/
+        var request = $http.post('http://localhost:8080/#/members/addMember', newMember);
 
-            if (className == 'ng-hide') {
-                element.removeClass('ng-hide');
+        console.log(newMember);
+        request.success(function (data, status, headers)
+        {
+            alert("Member Added Successfully");
+        });
 
-                var startPoint = element.parent().width();
-                if (scope.direction === 'right') {
-                    startPoint = -startPoint;
-                }
+        request.error(function(data, status, headers, config)
+        {
+            console.log(data, status);
+            alert("Something went Wrong");
+        });
+        //MemberController.addNewMember($scope, $http, newMember);
+    };
 
-                TweenMax.fromTo(element, 0.5, {
-                    left: startPoint
-                }, {
-                    left: 0,
-                    onComplete: done
-                });
-            } else {
-                done();
+    $scope.testingController = function()
+    {
+
+        var request = $http({
+            method : "GET",
+            url : "members/testing",
+            headers : {
+                'Content-Type' : "application/json"
             }
-        }
+        });
+        request.success(function (data, status, headers)
+        {
+            alert("Get Service Success  "+status +" << Data is >>"+data.toString());
+        });
+        request.error(function(data, status, headers, config)
+        {
+            console.log(config);
+            alert("Something went Wrong");
+        });
     }
-});*/
+}]);
+
+angModule.factory('myFactory', function($http){
+    var factory = {};
+
+    factory.member = function(success, error) {
+
+        return $http({method: 'POST', url: '/member'});
+    };
+    factory.postStuff = function(stuff){
+
+    };
+    return factory;
+});
