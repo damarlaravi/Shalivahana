@@ -1,6 +1,6 @@
 package com.shalivahana.service;
 
-import com.shalivahana.beans.MembersInfo;
+import com.shalivahana.modal.Members;
 
 /**
  * Created by rdemarla on 19-Oct-15.
@@ -8,5 +8,5 @@ import com.shalivahana.beans.MembersInfo;
 
 
 public interface MemberService {
-    void addMember(MembersInfo member);
+    void addMember(Members member);
 }

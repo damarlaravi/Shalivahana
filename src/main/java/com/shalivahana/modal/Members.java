@@ -1,4 +1,4 @@
-package com.shalivahana.forms;
+package com.shalivahana.modal;
 
 
 import javax.persistence.Column;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "MEMBERS")
-public class Member {
+public class Members {
 
     @Id
     @Column(name = "ID")

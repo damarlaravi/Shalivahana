@@ -85,8 +85,7 @@ angModule.controller("MemberController",["$scope","$http", function($scope, $htt
             alert("Member Added Successfully");
         });
 
-        request.error(function(data, status, headers, config)
-        {
+        request.error(function (data, status, headers, config) {
             console.log(data, status);
             alert("Something went Wrong");
         });

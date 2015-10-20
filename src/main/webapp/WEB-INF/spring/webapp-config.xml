@@ -38,62 +38,63 @@
 
     <!--<context:property-placeholder location="classpath:/WEB-INF/resources/database.properties" />-->
 
+<!--
     <bean id="configProperty" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <!--<value>/com/shalivahana/resources/database.properties</value>-->
-                <value>/WEB-INF/resources/database.properties</value>
+                &lt;!&ndash;<value>/com/shalivahana/resources/database.properties</value>&ndash;&gt;
+                <value>/WEB-INF/config/database.properties</value>
             </list>
         </property>
         <property name="ignoreResourceNotFound" value="true"/>
     </bean>
+-->
 
-    <!--<bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${database.driver}" />
-        <property name="url" value="${database.url}" />
-        <property name="username" value="${database.user}" />
-        <property name="password" value="${database.password}" />
-    </bean>-->
-
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/config/database.properties</value>
+            </list>
+        </property>
+    </bean>
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/shalivahana" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
     </bean>
 
-    <!-- This produces a container-managed EntityManagerFactory;
-    	 rather than application-managed EntityManagerFactory as in case of LocalEntityManagerFactoryBean-->
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
-                <property name="generateDdl" value="true" />
-                <property name="showSql" value="true" />
-            </bean>
-        </property>
-        <property name="packagesToScan" value="com.shalivahana.dao" />
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <bean id="hibernate4AnnotatedSessionFactory"
+                class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="jpaProperties">
+        <property name="annotatedClasses">
+            <list>
+                <value>com.shalivahana.modal.Members</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>
-    <!-- This transaction manager is appropriate for applications that use a single JPA EntityManagerFactory
-         for transactional data access. JTA (usually through JtaTransactionManager) is necessary for accessing
-         multiple transactional resources within the same transaction. -->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+
+    <bean id="memberDAO" class="com.shalivahana.dao.MemberDAOImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="memberService" class="com.shalivahana.service.MemberServiceImpl">
+        <property name="memberDAO" ref="memberDAO" />
     </bean>
 
-    <!-- responsible for registering the necessary Spring components that power annotation-driven transaction management;
-        such as when @Transactional methods are invoked -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
-    <!--<tx:annotation-driven />-->
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+    <context:component-scan base-package="com.shalivahana" />
 
+    <!--  proxies classes with aspectj and you may have @Transaction annotations for managing transactions-->
+    <tx:annotation-driven proxy-target-class="true" mode="aspectj" transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
 </beans>

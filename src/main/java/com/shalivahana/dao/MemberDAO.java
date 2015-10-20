@@ -1,6 +1,6 @@
 package com.shalivahana.dao;
 
-import com.shalivahana.forms.Member;
+import com.shalivahana.modal.Members;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  **/
 public interface MemberDAO
 {
-    public void addMember(Member member);
-    public List<Member> getMembers();
+    public void addMember(Members members);
+    public List<Members> getMembers();
     public void removeMember(Integer id);
 }
