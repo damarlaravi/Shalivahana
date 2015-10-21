@@ -345,19 +345,10 @@ NAV
     padding: 1px;
 }
 
-.sroller-container {
-    float: left;
-}
-
-.view-container {
-    float: left;
-}
-
-.home-table {
-    position: inherit;
-    margin: 20px;
-}
-
-.image-group{
-    float:left;
+.member-table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: middle;
+    border: none;
 }

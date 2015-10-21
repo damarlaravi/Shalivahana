@@ -66,17 +66,14 @@ angModule.controller('HomeController', ['$scope', '$interval', function ($scope,
 
 angModule.controller("MemberController",["$scope","$http", function($scope, $http){
     $scope.member = {};
-    //$scope.member.address = {};
+    //$scope.member.address = {};{"President", "Vice-President", "Treasurer", "Member"}
+    $scope.roles = [{Id: 0, Description: "-- Choose Role --"},
+        {Id: 1, Description: "President"},
+        {Id: 2, Description: "Vice-President"},
+        {Id: 3, Description: "Treasurer"},
+        {Id: 4, Description: "Member"}];
     $scope.addNewMember = function(newMember)
     {
-        /*var request = $http({
-            method : "POST",
-            url : 'members/add/',
-            data: newMember,
-            headers : {
-                'Content-Type' : "application/json"
-            }
-        });*/
         var request = $http.post('members/addMember', newMember);
 
         console.log(newMember);
@@ -94,7 +91,6 @@ angModule.controller("MemberController",["$scope","$http", function($scope, $htt
 
     $scope.testingController = function()
     {
-
         var request = $http({
             method : "GET",
             url : "members/testing",
