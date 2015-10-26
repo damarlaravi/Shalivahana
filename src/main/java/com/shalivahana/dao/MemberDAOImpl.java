@@ -1,13 +1,13 @@
 package com.shalivahana.dao;
 
-import com.shalivahana.modal.Members;
+import com.shalivahana.modal.Member;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
  **/
 
 @Repository
-public class MemberDAOImpl implements MemberDAO
+public class MemberDAOImpl implements MemberDAO, Serializable
 {
     private static final Logger logger = LoggerFactory.getLogger(MemberDAOImpl.class);
 
@@ -26,14 +26,14 @@ public class MemberDAOImpl implements MemberDAO
     }
 
     @Override
-    public void addMember(Members member) {
+    public void addMember(Member member) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(member);
         logger.info("Person saved successfully, Person Details=  "+ member);
     }
 
     @Override
-    public List<Members> getMembers() {
+    public List<Member> getMembers() {
         return null;
     }
 

@@ -8,17 +8,22 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+
+
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven validator="validator"/>
 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <mvc:resources mapping="/static/**" location="/WEB-INF/html/views/" />
+    <mvc:resources mapping="/views/**" location="/WEB-INF/html/views/" />
+
+    <mvc:default-servlet-handler/>
 
     <!--<mvc:resources mapping="/views/**" location="/WEB-INF/html/views/" />-->
 
@@ -26,7 +31,6 @@
 
     <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="/WEB-INF/html/"/>
-
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
@@ -71,7 +75,8 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>com.shalivahana.modal.Members</value>
+                <value>com.shalivahana.modal.Member</value>
+                <value>com.shalivahana.modal.Address</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -97,4 +102,5 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </bean>
+    <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>
 </beans>

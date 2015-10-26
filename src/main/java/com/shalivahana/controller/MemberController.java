@@ -1,6 +1,6 @@
 package com.shalivahana.controller;
 
-import com.shalivahana.modal.Members;
+import com.shalivahana.modal.Member;
 import com.shalivahana.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 
 /**
  * Created by Ravi on 19/10/15.
@@ -37,10 +39,11 @@ public class MemberController
 
 
     @RequestMapping(value = "/addMember", method = RequestMethod.POST)
-    public @ResponseBody void addMember(@RequestBody Members member)
+    public @ResponseBody void addMember(@RequestBody Member member) throws Exception
     {
         if(member.getId() == 0)
         {
+            member.setDate(new Date());
             //new person, add it
             this.memberService.addMember(member);
         }

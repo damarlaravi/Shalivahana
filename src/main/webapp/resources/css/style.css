@@ -351,4 +351,9 @@ NAV
     text-align: left;
     vertical-align: middle;
     border: none;
+    float: left;
+}
+
+.login-details{
+
 }

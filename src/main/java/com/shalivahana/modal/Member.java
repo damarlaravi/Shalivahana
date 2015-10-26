@@ -1,15 +1,13 @@
 package com.shalivahana.modal;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-@Table(name = "MEMBERS")
-public class Members {
+@Table(name = "MEMBER")
+public class Member implements Serializable {
 
     @Id
     @Column(name = "ID")
@@ -19,6 +17,9 @@ public class Members {
     @Column(name = "ROLE")
     private String role;
 
+    @Column(name = "GENDER")
+    private String gender;
+
     @Column(name = "FIRSTNAME")
     private String firstName;
 
@@ -27,6 +28,14 @@ public class Members {
 
     @Column(name = "IMAGEPATH")
     private String imagePath;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE")
+    private Date date;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
 
     public int getId() {
         return id;
@@ -64,7 +73,31 @@ public class Members {
         return imagePath;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

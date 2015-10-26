@@ -10,17 +10,17 @@
         <form class="form-horizontal" name="userForm" ng-submit="addNewMember(member)" method="post" novalidate>
             <table class="table member-table">
                 <tr>
-                    <td class="no-border">
+                    <td>
                         <!-- Role -->
                         <div class="form-group">
-                            <select name="role" ng-model="member.role" ng-options="role.Description for role in roles">
+                            <select name="role" ng-model="role" ng-options="role.Description for role in roles">
                                 <option style="display: none" value="">-- Choose Role --</option>
                             </select>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class="no-border">
+                    <td>
                         <!-- NAME -->
                         <div ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine }">
                             <input type="text" name="firstName" class="form-control" ng-model="member.firstName"
@@ -41,17 +41,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="no-border">
-                        <div class="view-container">
-                            <label for="genderMale">Male:
-                                <input id="genderMale" type="radio" ng-model="member.gender" value="male"/>
-                            </label>
-
-                        </div>
-                        <div class="view-container">
-                            <label for="genderFemale">Female:
-                                <input id="genderFemale" type="radio" ng-model="member.gender" value="female"/>
-                            </label>
+                    <td>
+                        <div class="form-group">
+                            <select name="gender" ng-model="gender" ng-options="gender.Value for gender in genderArray">
+                                <option style="display: none" value="">-- I am --</option>
+                            </select>
                         </div>
                     </td>
                 </tr>
@@ -124,7 +118,7 @@
                 <tr>
                     <td>
                         <button type="submit" ng-disabled="userForm.$invalid" class="btn btn-primary">Submit</button>
-                        <button type="submit" ng-click="testingController()" class="btn btn-primary">Testing</button>
+                        <button type="submit" ng-click="testingController()" class="btn btn-danger">Testing</button>
                     </td>
                 </tr>
             </table>

@@ -1,7 +1,7 @@
 package com.shalivahana.service;
 
 import com.shalivahana.dao.MemberDAO;
-import com.shalivahana.modal.Members;
+import com.shalivahana.modal.Member;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService
 
     @Override
     @Transactional
-    public void addMember(Members member) {
+    public void addMember(Member member) {
         memberDAO.addMember(member);
     }
 }

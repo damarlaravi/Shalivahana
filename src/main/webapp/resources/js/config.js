@@ -66,15 +66,23 @@ angModule.controller('HomeController', ['$scope', '$interval', function ($scope,
 
 angModule.controller("MemberController",["$scope","$http", function($scope, $http){
     $scope.member = {};
+    $scope.role = {};
+    $scope.gender = {};
+
     //$scope.member.address = {};{"President", "Vice-President", "Treasurer", "Member"}
     $scope.roles = [{Id: 0, Description: "-- Choose Role --"},
         {Id: 1, Description: "President"},
         {Id: 2, Description: "Vice-President"},
         {Id: 3, Description: "Treasurer"},
-        {Id: 4, Description: "Member"}];
+        {Id: 4, description: "Member"}];
+
+    $scope.genderArray = [{Id:1, Value:"Male"},{Id:2, Value:"Female"},{Id:3, Value:"Other"}];
+
     $scope.addNewMember = function(newMember)
     {
-        var request = $http.post('members/addMember', newMember);
+        $scope.member.gender = $scope.gender.Value;
+        $scope.member.role = $scope.role.Description;
+        var request = $http.post('members/addMember', $scope.member);
 
         console.log(newMember);
         request.success(function (data, status, headers)

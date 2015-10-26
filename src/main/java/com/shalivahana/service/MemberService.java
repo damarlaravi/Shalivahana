@@ -1,6 +1,6 @@
 package com.shalivahana.service;
 
-import com.shalivahana.modal.Members;
+import com.shalivahana.modal.Member;
 
 /**
  * Created by rdemarla on 19-Oct-15.
@@ -8,5 +8,5 @@ import com.shalivahana.modal.Members;
 
 
 public interface MemberService {
-    void addMember(Members member);
+    void addMember(Member member);
 }
