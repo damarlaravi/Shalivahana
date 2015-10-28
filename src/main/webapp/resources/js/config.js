@@ -31,6 +31,17 @@ angModule.config(['$urlRouterProvider', '$stateProvider',
             templateUrl: 'views/headerviews/contactus-vew.html'
         });
 
+        $stateProvider.state('signup', {
+            url: '/signup',
+            templateUrl: 'signup/signup-view.html'
+        });
+
+        $stateProvider.state('login', {
+            url: '/login',
+            templateUrl: 'login/login-info.html',
+            controller: LoginController
+        });
+
         $urlRouterProvider.otherwise('/home');
     }
 ]);

@@ -26,10 +26,18 @@ public class MemberDAOImpl implements MemberDAO, Serializable
     }
 
     @Override
-    public void addMember(Member member) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.persist(member);
-        logger.info("Person saved successfully, Person Details=  "+ member);
+    public void addMember(Member member)
+    {
+        try
+        {
+            Session session = this.sessionFactory.getCurrentSession();
+            session.persist(member);
+            logger.info("Person saved successfully, Person Details=  "+ member);
+        }
+        catch (Exception e)
+        {
+            logger.info(e.getMessage());
+        }
     }
 
     @Override
